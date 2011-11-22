@@ -16,12 +16,32 @@ end
 $expansion_list = [] unless defined?($expansion_list)
 $expansion_list.push(:talho) unless $expansion_list.index(:talho)
 
+$menu_config = {} unless defined?($menu_config)
+                    
+$menu_config[:talho] = <<EOF
+  nav = "{name: 'TALHO', items:[
+           {name: 'Training', items: [
+             {name: 'Rollcall', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'rollcall'}},
+             {name: 'RODS', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'rods'}},
+             {name: 'Essence', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'essence'}},
+             {name: 'Communication Trailer', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'comm_trailer'}},
+             {name: 'Power Trailer', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'pow_trailer'}},
+             {name: 'Video Conference', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'vid_conf'}},
+             {name: 'Other TALHO Training', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'other'}}
+           ]},
+           {name: 'Request Forms', items: [
+             {name: 'Teleconference', tab: {title: 'Teleconference Request Form', initializer: 'Talho.TALHO.controller.Teleconference'}},
+             {name: 'Video Conference', tab: {title: 'Video Conference Request Form', initializer: 'Talho.TALHO.controller.VideoConference'}},
+             {name: 'Help Desk Ticket', tab: {title: 'Help Desk Ticket Request Form', initializer: 'Talho.TALHO.controller.HelpDeskTicket'}}
+           ]},
+           {name: 'Support Information', tab: {title: 'Support Information', initializer: 'Talho.TALHO.controller.Support'}}
+         ]}"
+EOF
+
 # Register any required javascript or stylesheet files with the appropriate
 # rails expansion helper
 ActionView::Helpers::AssetTagHelper.register_javascript_expansion(
-  :talho => [
-    # add any necessary javascripts like "talho/cool_js_stuff.js"
-  ])
+  :talho => ["talho/script_config"])
 ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
   :talho => [
     # add any necessary stylesheets like "talho/cool_css_stuff.css"
