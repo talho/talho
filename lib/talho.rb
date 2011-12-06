@@ -21,12 +21,11 @@ $menu_config = {} unless defined?($menu_config)
 $menu_config[:talho] = <<EOF
   nav = "{name: 'TALHO', items:[
            {name: 'Training', items: [
-             {name: 'Rollcall', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'rollcall'}},
-             {name: 'RODS', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'rods'}},
-             {name: 'Essence', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'essence'}},
-             {name: 'Communication Trailer', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'comm_trailer'}},
-             {name: 'Power Trailer', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'pow_trailer'}},
-             {name: 'Video Conference', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'vid_conf'}},
+             //{name: 'Rollcall', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'rollcall'}},
+             {name: 'RODS', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'RODS'}},
+             {name: 'ESSENCE', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'ESSENCE'}},
+             {name: 'Communication and Power Trailers', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'trailer'}},
+             {name: 'Video Conferencing', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'video'}},
              {name: 'Other TALHO Training', tab: {title: 'Training', initializer: 'Talho.TALHO.controller.Training', section: 'other'}}
            ]},
            {name: 'Request Forms', items: [

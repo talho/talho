@@ -3,8 +3,14 @@ Ext.ns("Talho.TALHO.controller");
 
 Talho.TALHO.controller.Training = Ext.extend(Ext.util.Observable, {
   constructor: function(config){
+    Ext.apply(this, config);
+    
     var panel = new Talho.TALHO.view.training.Training({});
     this.getPanel = function(){return panel;}
+    
+    panel.on('afterrender', function(){
+      panel.getEl().select("h1[name='"+config.section+"']").first().dom.scrollIntoView(panel.getEl());
+    }, this, {delay: 1})
   }
 });
 
