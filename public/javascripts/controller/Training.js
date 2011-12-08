@@ -9,7 +9,7 @@ Talho.TALHO.controller.Training = Ext.extend(Ext.util.Observable, {
     this.getPanel = function(){return panel;}
     
     panel.on('afterrender', function(){
-      panel.getEl().select("h1[name='"+config.section+"']").first().dom.scrollIntoView(panel.getEl());
+      panel.getEl().select("h5[name='"+config.section+"']").first().dom.scrollIntoView(panel.getEl());
     }, this, {delay: 1})
   }
 });
