@@ -27,7 +27,7 @@ Talho.TALHO.view.training.Training = Ext.extend(Ext.Panel, {
       ]},
       {name: 'Mobile Tactical Units', short_name: 'trailer', info: [
         {name: 'Communication and Response Trailer 2009-2010 (Manual)', url: '/training/talho/2009-2010 CRT.pdf', type: 'doc'},
-        //{name: 'Communication and Response Trailer 2011 (Manual)', url: '/training/talho/2011 CRT.pdf', type: 'doc'},
+        {name: 'Communication and Response Trailer 2011 (Manual)', url: '/training/talho/2011 CRT.pdf', type: 'doc'},
         {name: 'Power Trailer (Manual)', url: '/training/talho/2011-09 Power Trailer Manual.pdf', type: 'doc'}
       ]},
       {name: 'Video Conferencing', short_name: 'video', info:[
