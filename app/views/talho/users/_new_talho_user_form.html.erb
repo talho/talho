@@ -34,7 +34,7 @@
 
   <%= f.label :talho_jurisdiction_id,  "Choose your home jurisdiction from the dropdown or choose 'Texas' from the dropdown to indicate that your operating jurisdiction is statewide.  Choose a county or one of the DSHS Health Service Regions listed under 'R' for 'Region'." %>
   <%= f.collection_select( :talho_jurisdiction_id,  @jurisdictions, :id, :name, {:include_blank => true}, {:class => "home_jurisdiction"}) %> <span class="label important">Required</span>
-  <%= f.label :role_id, "Please indicate if you are a TALHO Director or Member." %>
+  <%= f.label :role_id, "Please indicate if you are a TALHO Director or Staff." %>
   <%= f.collection_select :role_id, (Role.for_app("talho").user_roles), :id, :display_name, {:include_blank => false, :selected => @selected_role} %>
   <input type="hidden" name="user[organization_membership_requests_attributes][0][organization_id]" id="user_organization_membership_requests_attributes_0_organization_id" value="1" />
 
