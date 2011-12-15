@@ -28,9 +28,6 @@ class Talho::UsersController < ApplicationController
         if @role_request.save
           RoleRequestMailer.deliver_user_notification_of_role_request @role_request
         end
-        Jurisdiction.find_by_name("Texas").admins('talho').each do |admin|
-          SignupMailer.deliver_admin_notification_of_role_request(@role_request, admin) unless !@role_request.user.email_confirmed?
-        end
         SignupMailer.deliver_confirmation(@user)
         format.html { redirect_to sign_in_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
