@@ -45,3 +45,13 @@ ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
   :talho => [
     # add any necessary stylesheets like "talho/cool_css_stuff.css"
   ])
+
+begin
+  $public_roles = [] unless defined?($public_roles)
+  r = Role.find_by_name_and_application('Dashboard', 'talho')
+  $public_roles << r.id unless r.nil?
+rescue
+end
+
+module Talho
+end
