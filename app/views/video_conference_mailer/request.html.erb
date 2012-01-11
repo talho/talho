@@ -1,0 +1,69 @@
+<%- unless (@request) -%>
+  This Request does not exist or you do not have authorization to view it.
+<%- else -%>
+
+  <%# directives = [['name','Contact Name'],['location','Physical Location'],['email',"Email"],['phone','Phone'],['video','Video'],['teleconf','TeleConf'],['','Tested'],['','Notes']] %>
+  <% directives = [['name','Contact Name'],['location','Physical Location'],['teleconf','TeleConference'],['phone','Phone'],['video','Video'],['email','Email'],['tested','Tested'],['notes','Notes']] %>
+
+  <%- content_tag(:table,:cellspacing=>"0", :class=>"BreadnButter") do -%>
+
+    <%- content_tag(:caption, :style=>"text-align:center") do -%>
+
+      <%= content_tag(:h2, "A Video Conference has been requested as of #{Time.now.utc}", :style=>"text-align:center") %>
+
+      <%- content_tag(:table,:cellspacing=>"3") do -%>
+        <%- content_tag(:thead) do -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'Title' ) %>
+            <%= content_tag(:td, @request['title'] ) %>
+          <%- end -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'Date' ) %>
+            <%= content_tag(:td, @request['date'] ) %>
+          <%- end -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'Start' ) %>
+            <%= content_tag(:td, @request['start'] ) %>
+          <%- end -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'End' ) %>
+            <%= content_tag(:td, @request['end'] ) %>
+          <%- end -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'Coordinator' ) %>
+            <%= content_tag(:td, @request['coord_name'] ) %>
+          <%- end -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'Phone' ) %>
+            <%= content_tag(:td, @request['coord_phone'] ) %>
+          <%- end -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'Assigned Talho Technical Staff' ) %>
+            <%= content_tag(:td, '_____________________________________________' ) %>
+          <%- end -%>
+          <%- content_tag(:tr) do -%>
+            <%= content_tag(:td, 'Equipment Test Date & Time' ) %>
+            <%= content_tag(:td, '_____________________________________________' ) %>
+          <%- end -%>
+        <%- end -%>
+
+        <%- if @request['participant'].present? -%>
+          <%= content_tag(:h3, "Participant Count: #{@request['participant'].count}" ) %>
+        <%- end -%>
+      <%- end -%>
+
+    <%- end -%>
+
+    <%- if @request['participant'].present? -%>
+      Participant Information:
+      <%#=  debug @request['participant'] %>
+      <%= render :partial => "participant", :locals => {:entries => @request['participant'], :directives => directives} %>
+    <%- end -%>
+
+  <%- end -%>
+
+<%- end -%>
+
+
+
+
