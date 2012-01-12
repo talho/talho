@@ -48,8 +48,18 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
                   grid.getView().refresh();
                   grid.getSelectionModel().selectRow(row);
                   part_editor.startEditing(row);
+                  if (grid.store.getCount() > 0) {btn.ownerCt.getComponent('remove_btn').show()}
                 }
               }
+            },
+            {
+              text   : "-",
+              handler: function(btn) {
+                var grid = btn.findParentByType('grid');
+                grid.store.remove(grid.getSelectionModel().getSelected());
+                if (grid.store.getCount() < 1) {btn.hide()}
+              }
+              ,itemId: 'remove_btn', hidden: true
             }
           ]
         }
