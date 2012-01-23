@@ -4,6 +4,7 @@ Ext.ns('Talho.TALHO.view.training');
 Talho.TALHO.view.training.Training = Ext.extend(Ext.Panel, {
   title: 'Training',
   itemId: 'training',
+  autoScroll: true,
   closable: true,
   style: {
     padding: '5px'
