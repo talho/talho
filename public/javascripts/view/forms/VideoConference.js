@@ -15,9 +15,27 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
       {name: 'teleconf', type: 'string'}
     ]);
     this.participantStore = new Ext.data.Store({reader: new Ext.data.ArrayReader( {idIndex: 0}, Participant ) });
-    var part_editor = new Ext.ux.grid.RowEditor();
+    var part_editor = new Ext.ux.grid.RowEditor({listeners: {
+      canceledit: function(row_editor){
+        row_editor.ownerCt.getStore().remove(row_editor.ownerCt.getSelectionModel().getSelected());
+      }
+    }});
 
-    this.items = [{xtype: 'form', itemId: 'form', border: false, labelAlign: 'top', monitorValid: true, method: 'POST', url: '/talho/video_conference',
+    this.items = [{
+      xtype: 'form',
+      itemId: 'form',
+      border: false,
+      labelAlign: 'top',
+      width: 604,
+      monitorValid: true,
+      method: 'POST',
+      url: '/talho/video_conference',
+      defaults: {
+        width: 200
+      },
+      style:{
+        margin: '0px auto'
+      },
       items: [
         {xtype: 'textfield', fieldLabel: 'Conference Title', name: 'form[title]', allowBlank: false},
         {xtype: 'datefield', fieldLabel: 'Date', name: 'form[date]', allowBlank: false, minValue: (new Date())},
@@ -29,10 +47,10 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
         {xtype: 'textfield', fieldLabel: 'Assigned Site Coordinator Phone', itemId: 'phone', name: 'form[coord_phone]', allowBlank: false, vtype: 'phone'},
         {xtype: 'grid', fieldLabel: 'Participant', itemId: 'grid', store: this.participantStore, plugins: [part_editor], width: 604, height: 200, stripeRows: true,
           columns: [
-            {header: 'Contact Name',      dataIndex: 'name',     editor: new Ext.form.TextField(), allowBlank: false},
-            {header: 'Physical Location', dataIndex: 'location', editor: new Ext.form.TextField()},
-            {header: 'Email',             dataIndex: 'email',    editor: new Ext.form.TextField(), vtype: 'email'},
-            {header: 'Phone',             dataIndex: 'phone',    editor: new Ext.form.TextField(), vtype: 'phone'},
+            {header: 'Contact Name',      dataIndex: 'name',     editor: new Ext.form.TextField({allowBlank: false})},
+            {header: 'Physical Location', dataIndex: 'location', editor: new Ext.form.TextField({allowBlank: false})},
+            {header: 'Email',             dataIndex: 'email',    editor: new Ext.form.TextField({allowBlank: false, vtype: 'email'})},
+            {header: 'Phone',             dataIndex: 'phone',    editor: new Ext.form.TextField({allowBlank: false, vtype: 'phone'})},
             {header: 'Video',             dataIndex: 'video',    editor: new Ext.form.TextField()},
             {header: 'TeleConf',          dataIndex: 'teleconf', editor: new Ext.form.TextField()}
           ],
@@ -64,27 +82,61 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
           ]
         }
       ],
-      buttons: [{text: 'Submit', formBind: true, scope: this, handler: function(btn){
-        var params = btn.ownerCt.ownerCt.getForm().getValues();
-        Object.keys(params).forEach(function(key) {
-          if (/^ext/.test(key)) {delete params[key]}
-        });
-        var par_idx = 0;
-        btn.ownerCt.ownerCt.getComponent('grid').getStore().each(function(r){
-          Object.keys(r.data).forEach(function(key) {
-            params['form[participant]['+par_idx+']['+key+']'] = r.data[key];
+      buttonAlign: 'left',
+      buttons: [{
+        text: 'Submit',
+        formBind: true,
+        scope: this,
+        handler: function(btn){
+          this.videoConfMask = new Ext.LoadMask(btn.ownerCt.ownerCt.ownerCt.getEl(), {msg:"Please wait..."});
+          this.videoConfMask.show();
+          var params = btn.ownerCt.ownerCt.getForm().getValues();
+          Object.keys(params).forEach(function(key) {
+            if (/^ext/.test(key)) {delete params[key]}
           });
-          par_idx++;
-        }, this);
-        Ext.Ajax.request({
-           url: '/talho/video_conference',
-           method: 'POST',
-           scope:  this,
-           params: params,
-           success: function(){alert('Successfully sent email');},
-           failure: function(){alert('Trouble with this request')}
-        });
-      }}]
+          var par_idx = 0;
+          btn.ownerCt.ownerCt.getComponent('grid').getStore().each(function(r){
+            Object.keys(r.data).forEach(function(key) {
+              params['form[participant]['+par_idx+']['+key+']'] = r.data[key];
+            });
+            par_idx++;
+          }, this);
+          if(par_idx > 0 && params['form[participant][0][name]']){
+            Ext.Ajax.request({
+               url: '/talho/video_conference',
+               method: 'POST',
+               scope:  this,
+               params: params,
+               success: function(){
+                  this.videoConfMask.hide();
+                  Ext.Msg.alert(
+                    'Success',
+                    'Successfully sent video conference request.  You will receive a confirmation email in your inbox.',
+                    function(){
+                      this.destroy();
+                    }, this);
+               },
+               failure: function(){
+                 this.videoConfMask.hide();
+                 Ext.Msg.alert(
+                  'Alert',
+                  'There was an issue sending your request and we have been notified.  Please try again later.',
+                  function(){
+                    this.destroy();
+                  }, this);
+               }
+            });
+          }else{
+            this.videoConfMask.hide();
+            Ext.Msg.alert('Notice','You must add at least one conference participant.  Please try again');
+          }
+
+        },
+        style:{
+          position: 'relative',
+          left: '-7px'
+        }
+      }]
     }];
 
     Talho.TALHO.view.forms.VideoConference.superclass.initComponent.apply(this, arguments);

@@ -4,7 +4,7 @@ Ext.ns("Talho.TALHO.controller");
 Talho.TALHO.controller.Teleconference = Ext.extend(Ext.util.Observable, {
   constructor: function(config) {
 	
-    var panel = new Talho.TALHO.view.forms.Teleconference({});
+    var panel = new Talho.TALHO.view.forms.Teleconference({id: config.id});
     this.getPanel = function(){return panel;};
 
     panel.on('render', function() {

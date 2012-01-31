@@ -5,7 +5,7 @@ Talho.TALHO.controller.Training = Ext.extend(Ext.util.Observable, {
   constructor: function(config){
     Ext.apply(this, config);
     
-    var panel = new Talho.TALHO.view.training.Training({});
+    var panel = new Talho.TALHO.view.training.Training({id: config.id});
     this.getPanel = function(){return panel;}
     
     panel.on('afterrender', function(){

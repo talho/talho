@@ -3,7 +3,7 @@ Ext.ns("Talho.TALHO.controller");
 
 Talho.TALHO.controller.Support = Ext.extend(Ext.util.Observable, {
   constructor: function(config){
-    var panel = new Talho.TALHO.view.support.Information({});
+    var panel = new Talho.TALHO.view.support.Information({id: config.id});
     this.getPanel = function(){return panel;}
   }
 });
