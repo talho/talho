@@ -1,6 +1,4 @@
-class Talho::UsersController < ApplicationController
-
-  skip_before_filter :login_required, :only => [:new, :create]
+class Talho::UsersController < Clearance::UsersController
 
   def new
     @user = User.new
