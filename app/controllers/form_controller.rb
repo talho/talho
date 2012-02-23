@@ -25,7 +25,12 @@ class FormController < ApplicationController
   end
 
   def help_request
-    HelpRequestMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,params[:form])
-    render :json => {:success => true}
+    begin
+      request = params[:form]
+      HelpRequestMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,request)
+      render :json => {:success => true}
+    rescue StandardError => e
+      render :json => {:success => false}
+    end
   end
 end

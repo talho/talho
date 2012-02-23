@@ -63,6 +63,5 @@ Feature: Teleconference Request Form
       | Red Buttons     |
       | 888-555-2222    |
       | 6               |
-    Then the "Request Sent" window should be open
-    And I close the active ext window
-
+    Then the "Success" window should be open
+    And I press "OK"

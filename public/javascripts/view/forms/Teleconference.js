@@ -32,24 +32,18 @@ Talho.TALHO.view.forms.Teleconference = Ext.extend(Ext.Panel, {
         {xtype: 'numberfield', fieldLabel: 'Number of Participants', name: 'form[num_parts]', maxValue: 20, allowBlank: false}
       ],
       listeners:{
-        scope:          this,
-        actioncomplete: function(this_form, this_action){
-          this.teleConfMask.hide();
-          Ext.Msg.alert(
-            'Request Sent',
-            'Check that you have received a confirmation email in your inbox.',
-            function(){
-              this.destroy();
-            }, this);
+        scope: this,
+        actioncomplete: function(){
+          Ext.Msg.alert('Success',
+            'Successfully sent teleconference request.  You will receive a confirmation email in your inbox.',
+            function(){this.destroy();}, this
+          );
         },
-        actionfailed: function(this_form, this_action){
-          this.teleConfMask.hide();
-          Ext.Msg.alert(
-            'Alert',
-            'There was an issue sending your request and we have been notified.  Please try again later.',
-            function(){
-              this.destroy();
-            }, this);
+        actionfailed: function(){
+          Ext.Msg.alert('Alert',
+           'There was an issue sending your request and we have been notified.  Please try again later.',
+           function(){this.destroy();}, this
+          );
         }
       },
       buttonAlign: 'left',

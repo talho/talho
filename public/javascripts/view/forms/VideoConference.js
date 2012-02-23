@@ -97,8 +97,7 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
           this.videoConfMask.hide();
         },
         style:{ position: 'relative', left: '-7px' }
-        },
-        {text: 'Cancel', scope: this, handler: function() {win.close();}              }
+        }
       ],
       listeners: {
         beforeaction: function(form,action){
@@ -120,13 +119,13 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
         actioncomplete: function(){
           Ext.Msg.alert('Success',
             'Successfully sent video conference request.  You will receive a confirmation email in your inbox.',
-            function(){this.destroy();}, this
+            function(){this.ownerCt.destroy();}, this
           );
         },
         actionfailed: function(){
           Ext.Msg.alert('Alert',
            'There was an issue sending your request and we have been notified.  Please try again later.',
-           function(){this.destroy();}, this
+           function(){this.ownerCt.destroy();}, this
           );
         }
       }
