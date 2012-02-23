@@ -4,7 +4,6 @@ class FormController < ApplicationController
 
   def teleconference
     begin
-      debugger
       request = params[:form]
       request[:requester] = {:name=>current_user.name,:email=>current_user.email}
       TeleConferenceMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,request)
