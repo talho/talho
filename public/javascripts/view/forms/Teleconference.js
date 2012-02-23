@@ -36,8 +36,8 @@ Talho.TALHO.view.forms.Teleconference = Ext.extend(Ext.Panel, {
         actioncomplete: function(this_form, this_action){
           this.teleConfMask.hide();
           Ext.Msg.alert(
-            'Success',
-            'Successfully sent teleconference request.  You will receive a confirmation email in your inbox.',
+            'Request Sent',
+            'Check that you have received a confirmation email in your inbox.',
             function(){
               this.destroy();
             }, this);

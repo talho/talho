@@ -1,24 +1,32 @@
 class FormController < ApplicationController
 
-  @@email_to = 'conference@talho.org'
-  @@email_from = 'Admin@talho.org'
+  CONFERENCE_EMAIL = 'conference@talho.org'
 
   def teleconference
-    TeleConferenceMailer.deliver_request(@@email_from,@@email_to,params[:form])
-    render :json => {:success => true}
+    begin
+      debugger
+      request = params[:form]
+      request[:requester] = {:name=>current_user.name,:email=>current_user.email}
+      TeleConferenceMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,request)
+      render :json => {:success => true}
+    rescue StandardError => e
+      render :json => {:success => false}
+    end
   end
   
   def video_conference
-    # mend javascript foolishness, I just got exhausted
-    par = []
-    params[:form][:participant].each{|k,v| par << v}
-    params[:form][:participant] = par
-    VideoConferenceMailer.deliver_request(@@email_from,@@email_to,params[:form])
-    render :json => {:success => true}
+    begin
+      request = params[:form]
+      request[:requester] = {:name=>current_user.name,:email=>current_user.email}
+      VideoConferenceMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,request)
+      render :json => {:success => true}
+    rescue StandardError => e
+      render :json => {:success => false}
+    end
   end
 
   def help_request
-    HelpRequestMailer.deliver_request(@@email_from,@@email_to,params[:form])
+    HelpRequestMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,params[:form])
     render :json => {:success => true}
   end
 end

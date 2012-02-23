@@ -56,7 +56,6 @@
 
     <%- if @request['participant'].present? -%>
       Participant Information:
-      <%#=  debug @request['participant'] %>
       <%= render :partial => "participant", :locals => {:entries => @request['participant'], :directives => directives} %>
     <%- end -%>
 

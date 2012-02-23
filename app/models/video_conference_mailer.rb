@@ -4,11 +4,12 @@ class VideoConferenceMailer < ActionMailer::Base
     recipients  email_to
     from email_from
     bcc request['requester']['email']
-    subject "Talho: Video Conference \"#{request['title']}\" has been requested"
+    subject 'Talho: Video Conference ' + request['title'] + ' has been requested'
     body :request => request
   end
 
 end
+
 
 
 
