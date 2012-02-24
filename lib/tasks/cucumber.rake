@@ -5,10 +5,10 @@ begin
 
   namespace :cucumber do
     desc = "Talho plugin, add any cmd args after --"
-    Cucumber::Rake::Task.new({:talho => 'db:test:prepare'}, desc) do |t|
+    Cucumber::Rake::Task.new({:talho => 'db:migrate:talho'}, desc) do |t|
       t.cucumber_opts = "-r features " +
-                        "-r vendor/plugins/talho/spec/factories.rb " +
-                        "-r vendor/plugins/talho/features/step_definitions " +
+#                        "-r vendor/plugins/talho/spec/factories.rb " +
+                        "-r vendor/plugins/talho/features/step_definitions/ " +
                         " #{ARGV[1..-1].join(" ") if ARGV[1..-1]}" +
                         # add all Talho features if none are passed in
                         (ARGV.grep(/^vendor/).empty? ? "vendor/plugins/talho/features" : "")

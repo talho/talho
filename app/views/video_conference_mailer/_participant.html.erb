@@ -12,7 +12,8 @@
         <%- if meta[0].blank? -%>
           <%= content_tag(:td, '&nbsp;')%>
         <%- else -%>
-          <%= content_tag(:td, meta.size>2 ? send(meta[2],entry[meta[0]]) : (entry[meta[0]] || '________' ) ) %>
+          <%#= "entry #{entry.inspect} at #{meta[0]} labeled as #{meta[1]}" %>
+          <%= content_tag(:td, meta.size>2 ? send(meta[2],entry[1][meta[0]]) : (entry[1][meta[0]] || '________' ) ) %>
         <%- end -%>
       <%- end -%>
     <%- end -%>
