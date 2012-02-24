@@ -23,14 +23,11 @@ class Talho::UsersController < Clearance::UsersController
         @role_request.user         = @user
         @role_request.role         = talho_role
         @role_request.jurisdiction = jurisdiction
-        if @role_request.save
-          RoleRequestMailer.deliver_user_notification_of_role_request @role_request
-        end
-        SignupMailer.deliver_confirmation(@user)
-        format.html { redirect_to sign_in_path }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
+        @role_request.save
         flash[:notice] = "Thanks for signing up! An email will be sent to #{@user.email} shortly to confirm your account." +
           "Once you've confirmed you'll be able to login into the TALHO Dashboard.\n\nIf you have any questions please email support@#{DOMAIN}."
+        format.html { redirect_to sign_in_path }
+        format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         @user[:talho_jurisdiction_id] = jurisdiction.blank? ? nil : jurisdiction.id
         @user[:role_id] = talho_role.blank? ? nil : talho_role.id
