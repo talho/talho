@@ -54,7 +54,7 @@ Feature: Help Desk Ticket
     And I press "Submit"
     And delayed jobs are processed
 
-    Then a talho request from "staff.collin@example.com" should be sent containing:
+    Then a talho helpdesk request from "staff.collin@example.com" should be sent containing:
       | Staff Collin             |
       | Bexar County             |
       | 888-555-4444             |

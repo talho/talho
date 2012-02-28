@@ -1,6 +1,7 @@
 class FormController < ApplicationController
 
   CONFERENCE_EMAIL = 'conference@talho.org'
+  HELPDESK_EMAIL = 'admins@texashan.org'
 
   def teleconference
     begin
@@ -27,7 +28,7 @@ class FormController < ApplicationController
   def help_request
     begin
       request = params[:form]
-      HelpRequestMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,request)
+      HelpRequestMailer.deliver_request(DO_NOT_REPLY,HELPDESK_EMAIL,request)
       render :json => {:success => true}
     rescue StandardError => e
       render :json => {:success => false}
