@@ -26,6 +26,7 @@ Feature: Teleconference Request Form
 
     When I fill in "Conference Title" with ""
     And I fill in "Number of Participants" with "888888"
+    And I wait for 1 seconds
     Then the "Conference Title" field should be invalid
 
     When I fill in "Date" with "00/"
@@ -39,6 +40,7 @@ Feature: Teleconference Request Form
 
     When I fill in "Coordinator Name" with ""
     And I fill in "Date" with "01/01/2022"
+    And I wait for 1 seconds
     Then the "Coordinator Name" field should be invalid
 
     When I fill in "Coordinator Phone" with "six"
@@ -55,7 +57,7 @@ Feature: Teleconference Request Form
     And I press "Submit"
     And delayed jobs are processed
 
-    Then a talho request from "staff.collin@example.com" should be sent containing:
+    Then a talho conference request from "staff.collin@example.com" should be sent containing:
       | Bowling Tonight |
       | 01/01/2022      |
       | 08:00 PM        |
