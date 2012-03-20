@@ -50,7 +50,7 @@ Feature: Help Desk Ticket
     When I fill in "Email" with "staff.collin@example.com"
     When I fill in "Describe Technical Issue" with "I have a headache"
 
-    And I wait for 0.1 seconds
+    And I wait for .2 seconds
     And I press "Submit"
     And delayed jobs are processed
     And I wait for the "Please wait..." mask to go away
