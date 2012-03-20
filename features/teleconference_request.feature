@@ -17,7 +17,6 @@ Feature: Teleconference Request Form
 
   Scenario: Submit a Teleconference Request with verifying field validations
     Given I am logged in as "staff.collin@example.com"
-    And I navigate to the ext dashboard page
     And I navigate to "Apps > TALHO > Request Forms > Teleconference"
 
     Then I should see "Staff Collin"
@@ -55,6 +54,7 @@ Feature: Teleconference Request Form
     And I fill in "Coordinator Phone" with "888-555-2222"
     And I fill in "Number of Participants" with "6"
     And I press "Submit"
+    And I wait for the "Please wait..." mask to go away
     And delayed jobs are processed
 
     Then a talho conference request from "staff.collin@example.com" should be sent containing:

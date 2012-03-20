@@ -34,12 +34,14 @@ Talho.TALHO.view.forms.Teleconference = Ext.extend(Ext.Panel, {
       listeners:{
         scope: this,
         actioncomplete: function(){
+          this.teleConfMask.hide();
           Ext.Msg.alert('Success',
             'Successfully sent teleconference request.  You will receive a confirmation email in your inbox.',
             function(){this.destroy();}, this
           );
         },
         actionfailed: function(){
+        	this.teleConfMask.hide();
           Ext.Msg.alert('Alert',
            'There was an issue sending your request and we have been notified.  Please try again later.',
            function(){this.destroy();}, this

@@ -94,17 +94,17 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
           this.videoConfMask = new Ext.LoadMask(btn.ownerCt.ownerCt.ownerCt.getEl(), {msg:"Please wait..."});
           this.videoConfMask.show();
           btn.ownerCt.ownerCt.getForm().submit();
-          this.videoConfMask.hide();
         },
         style:{ position: 'relative', left: '-7px' }
         }
       ],
       listeners: {
+        scope: this,
         beforeaction: function(form,action){
           if (action.type == 'submit'){
             action.options.params = {};
             var index = 0;
-            this.ownerCt.participantStore.data.each(function(r){ // reform into html-form parameters
+            this.participantStore.data.each(function(r){ // reform into html-form parameters
               Object.keys(r.data).forEach(function(key){
                 action.options.params['form[participant][' + index + '][' + key + ']'] = r.data[key];
               });
@@ -117,12 +117,14 @@ Talho.TALHO.view.forms.VideoConference = Ext.extend(Ext.Panel, {
           }
         },
         actioncomplete: function(){
+          this.videoConfMask.hide();
           Ext.Msg.alert('Success',
             'Successfully sent video conference request.  You will receive a confirmation email in your inbox.',
             function(){this.ownerCt.destroy();}, this
           );
         },
         actionfailed: function(){
+          this.videoConfMask.hide();
           Ext.Msg.alert('Alert',
            'There was an issue sending your request and we have been notified.  Please try again later.',
            function(){this.ownerCt.destroy();}, this

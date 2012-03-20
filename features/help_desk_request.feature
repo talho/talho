@@ -52,6 +52,7 @@ Feature: Help Desk Ticket
     When I fill in "Describe Technical Issue" with "I have a headache"
 
     And I press "Submit"
+    And I wait for the "Please wait..." mask to go away
     And delayed jobs are processed
 
     Then a talho helpdesk request from "staff.collin@example.com" should be sent containing:
