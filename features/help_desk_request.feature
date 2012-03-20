@@ -17,7 +17,6 @@ Feature: Help Desk Ticket
 
   Scenario: Submit a Help Request with verifying field validations
     Given I am logged in as "staff.collin@example.com"
-    And I navigate to the ext dashboard page
     And I navigate to "Apps > TALHO > Request Forms > Help Desk Ticket"
 
 #    Then I should see "Staff Collin"
@@ -26,7 +25,7 @@ Feature: Help Desk Ticket
 
     When I fill in "Name" with ""
     When I fill in "Describe Technical Issue" with "just to change focus"
-    And I wait for 1 seconds
+    And I wait for 0.1 seconds
     Then the "Name" field should be invalid
 
     When I fill in "Health Department" with ""
@@ -51,10 +50,12 @@ Feature: Help Desk Ticket
     When I fill in "Email" with "staff.collin@example.com"
     When I fill in "Describe Technical Issue" with "I have a headache"
 
+    And I wait for 0.1 seconds
     And I press "Submit"
-    And I wait for the "Please wait..." mask to go away
     And delayed jobs are processed
-
+    And I wait for the "Please wait..." mask to go away
+    
+    Then the "Success" window should be open
     Then a talho helpdesk request from "staff.collin@example.com" should be sent containing:
       | Staff Collin             |
       | Bexar County             |
@@ -62,6 +63,4 @@ Feature: Help Desk Ticket
       | staff.collin@example.com |
       | I have a headache        |
 
-    Then the "Success" window should be open
-    And I press "OK"
 
