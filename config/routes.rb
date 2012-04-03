@@ -1,7 +1,9 @@
-ActionController::Routing::Routes.draw do |map|
-  map.talho_video_conference '/talho/video_conference', :controller => :form, :action => :video_conference, :method => 'POST'
-  map.talho_teleconference '/talho/teleconference', :controller => :form, :action => :teleconference, :method => 'POST'
-  map.talho_help_request '/talho/help_request', :controller => :form, :action => :help_request, :method => 'POST'
+Openphin::Application.routes.draw do
+  namespace :talho do 
+    match '/talho/video_conference', :to => 'form#video_conference', :as => :talho_video_conference, :via => :post
+    match '/talho/teleconference', :to => 'form#teleconference', :as => :talho_teleconference, :via => :post
+    match '/talho/help_request', :to => 'form#help_request', :as => :talho_help_request, :via => :post
 
-  map.resources :talho_users, :as=> 'talho/users', :controller=> 'talho/users', :only=> [:new, :create]
+    resources :users, :only=> [:new, :create]
+  end
 end

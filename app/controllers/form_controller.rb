@@ -7,7 +7,7 @@ class FormController < ApplicationController
     begin
       request = params[:form]
       request[:requester] = {:name=>current_user.name,:email=>current_user.email}
-      TeleConferenceMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,request)
+      TeleConferenceMailer.request(DO_NOT_REPLY,CONFERENCE_EMAIL,request).deliver
       render :json => {:success => true}
     rescue StandardError => e
       render :json => {:success => false}
@@ -18,7 +18,7 @@ class FormController < ApplicationController
     begin
       request = params[:form]
       request[:requester] = {:name=>current_user.name,:email=>current_user.email}
-      VideoConferenceMailer.deliver_request(DO_NOT_REPLY,CONFERENCE_EMAIL,request)
+      VideoConferenceMailer.request(DO_NOT_REPLY,CONFERENCE_EMAIL,request).deliver
       render :json => {:success => true}
     rescue StandardError => e
       render :json => {:success => false}
@@ -28,7 +28,7 @@ class FormController < ApplicationController
   def help_request
     begin
       request = params[:form]
-      HelpRequestMailer.deliver_request(DO_NOT_REPLY,HELPDESK_EMAIL,request)
+      HelpRequestMailer.request(DO_NOT_REPLY,HELPDESK_EMAIL,request).deliver
       render :json => {:success => true}
     rescue StandardError => e
       render :json => {:success => false}
