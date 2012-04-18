@@ -11,7 +11,7 @@ Feature: Help Desk Ticket
     And Texas is the parent jurisdiction of:
       | Collin |
     And the following users exist:
-      | Staff Collin | staff.collin@example.com | Staff | Collin |
+      | Staff Collin | staff.collin@example.com | Staff | Collin | talho |
     And delayed jobs are processed
     And "staff.collin@example.com" has the phone "888-555-4444"
 

@@ -11,7 +11,7 @@ Feature: Teleconference Request Form
     And Texas is the parent jurisdiction of:
       | Collin |
     And the following users exist:
-      | Staff Collin | staff.collin@example.com | Staff | Collin |
+      | Staff Collin | staff.collin@example.com | Staff | Collin | talho |
     And delayed jobs are processed
     And "staff.collin@example.com" has the phone "888-555-4444"
 
@@ -53,6 +53,7 @@ Feature: Teleconference Request Form
     When I fill in "Coordinator Name" with "Red Buttons"
     And I fill in "Coordinator Phone" with "888-555-2222"
     And I fill in "Number of Participants" with "6"
+    And I wait for 1 second
     And I press "Submit"
     And I wait for the "Please wait..." mask to go away
     And delayed jobs are processed
