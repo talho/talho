@@ -2,7 +2,8 @@
 # Tell the main app that this extension exists
 $extensions = [] unless defined?($extensions)
 $extensions << :talho
-                    
+             
+$menu_config = {} unless defined?($menu_config)
 $menu_config[:talho] = <<EOF
   nav = "{name: 'TALHO', items:[
            {name: 'Training', items: [
