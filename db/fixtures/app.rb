@@ -2,6 +2,7 @@
 talho = App.find_or_create_by_name('talho')
 
 talho.help_email = 'admins@talho.org' if talho.help_email.blank?
+talho.domains = 'dashboard.talho.org' if talho.domains.blank?
 talho.root_jurisdiction = Jurisdiction.find_by_name("Texas") if talho.root_jurisdiction.blank? #if this isn't defined, no worries
 talho.login_text = %Q{<p>The TALHO Public Health Information Network (TALHO Phin) is an online portal containing a collection of applications which provide users with a range of functions to carry out public health preparedness goals and duties. <a href="/tutorials/Registering_and_Navigating_The_PHIN_-_Manual.pdf">Click here</a> for a tutorial on registering and navigating the PHIN, and <a href="/tutorials/Health_Alert_Network_Training_-_Manual.pdf">here</a> for Health Alert Network (HAN) training.</p>
 <p>To learn more about TALHO Phin, please visit <a href="/about">About OpenPHIN</a></p>} if talho.login_text.blank?
